@@ -1,3 +1,4 @@
+DROP TABLE customers;
 create table customers(
     id varchar(12),
     name varchar(8),
@@ -8,20 +9,19 @@ INSERT INTO customers values('4353','Yuvraj','hr');
 INSERT INTO customers values('4354','Sindhu','pn');
 
 DECLARE
-c_id customers.id%type;
-c_name customers.name%type;
-c_addr customers.address%type;
+customerId customers.id%type;
+customerName customers.name%type;
+customerAddr customers.address%type;
 
-CURSOR c_customers is
+CURSOR customersCursor is
 SELECT id, name, address FROM customers;
 
 BEGIN
-    OPEN c_customers;
+    OPEN customersCursor;
     LOOP
-    FETCH c_customers into c_id, c_name, c_addr;
-    EXIT WHEN c_customers%notfound;
-    dbms_output.put_line(c_id || ' ' || c_name || ' ' ||
-    c_addr);
+    FETCH customersCursor into customerId, customerName, customerAddr;
+    EXIT WHEN customersCursor%notfound;
+    dbms_output.put_line(customerId || ' ' || customerName || ' ' || customerAddr);
     END LOOP;
-    CLOSE c_customers;
+    CLOSE customersCursor;
 END;
